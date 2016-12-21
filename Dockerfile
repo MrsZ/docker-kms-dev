@@ -1,4 +1,4 @@
-# kurento-dev
+# kms-dev
 #
 # VERSION               4.4.3
 
@@ -43,6 +43,7 @@ RUN apt-get update && apt-get install -y cmake \
 && cd /opt/kurento/kms-datachannelexample && git checkout 6.6.0 \
 && cd /opt/kurento/kms-platedetector && git checkout 6.6.0 \
 && cd /opt/kurento/kms-pointerdetector && git checkout 6.6.0 \
+&& cd /opt/kurento/kurento-module-creator && git checkout 4.0.7 \
 && cd /opt/kurento/kurento-media-server \
 && sudo apt-get install -y $(cat debian/control | sed -e "s/$/\!\!/g" | tr -d '\n' | sed "s/\!\! / /g" | sed "s/\!\!/\n/g" | grep "Build-Depends" | sed "s/Build-Depends: //g" | sed "s/([^)]*)//g" | sed "s/, */ /g") \
 && debuild -us -uc \
