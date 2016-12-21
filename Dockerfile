@@ -31,6 +31,7 @@ RUN apt-get update && apt-get install -y cmake \
 && git clone https://github.com/Kurento/kms-platedetector.git \
 && git clone https://github.com/Kurento/kms-plugin-sample.git \
 && git clone https://github.com/Kurento/kms-pointerdetector.git \
+&& git clone https://github.com/Kurento/kurento-module-creator.git \
 && cd /opt/kurento/kurento-media-server && git checkout 6.6.1 \
 && cd /opt/kurento/kms-core && git checkout 6.6.1 \ 
 && cd /opt/kurento/kms-filters && git checkout 6.6.1 \
@@ -43,6 +44,9 @@ RUN apt-get update && apt-get install -y cmake \
 && cd /opt/kurento/kms-platedetector && git checkout 6.6.0 \
 && cd /opt/kurento/kms-pointerdetector && git checkout 6.6.0 \
 && cd /opt/kurento/kurento-media-server \
+&& sudo apt-get install -y $(cat debian/control | sed -e "s/$/\!\!/g" | tr -d '\n' | sed "s/\!\! / /g" | sed "s/\!\!/\n/g" | grep "Build-Depends" | sed "s/Build-Depends: //g" | sed "s/([^)]*)//g" | sed "s/, */ /g") \
+&& debuild -us -uc \
+&& cd /opt/kurento/kurento-module-creator \
 && sudo apt-get install -y $(cat debian/control | sed -e "s/$/\!\!/g" | tr -d '\n' | sed "s/\!\! / /g" | sed "s/\!\!/\n/g" | grep "Build-Depends" | sed "s/Build-Depends: //g" | sed "s/([^)]*)//g" | sed "s/, */ /g") \
 && debuild -us -uc \
 && cd /opt/kurento/kms-core \
